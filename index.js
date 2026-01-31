@@ -49,12 +49,13 @@ btn.addEventListener("click", (evt) => {
 });
 
 
-function updateRate() {
-    fetch(`https://v6.exchangerate-api.com/v6/a31f3c3aec16820f60d6c390/latest/${currencyfirst.value}`).then((res) => res.json()).then((data) => {
+const updateRate = async () => {
+    let resultfetch = fetch(`https://v6.exchangerate-api.com/v6/a31f3c3aec16820f60d6c390/latest/${currencyfirst.value}`);
+    resultfetch.then((res) => res.json()).then( async (data) => {
       
-        let rate = data.conversion_rates[currencysecond.value];
-        let total = (inputamount.value * rate).toFixed(2);
-        console.log(`${inputamount.value} ${currencyfirst.value} = ${total} ${currencysecond.value}`);
+        let rate = await data.conversion_rates[currencysecond.value];
+        let total =  (inputamount.value * rate).toFixed(2);
+      
         resultbox.innerHTML = `Result : ${inputamount.value} ${currencyfirst.value} = ${total} ${currencysecond.value}`;
     });
 }
